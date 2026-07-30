@@ -15,6 +15,7 @@
                         Share your thoughts with the world using Laravel,
                         Tailwind CSS, and DaisyUI.
                     </p>
+                    <p>We are now live on the internet</p>
 
                     <a href="/register" class="btn btn-primary">
                         Get Started
