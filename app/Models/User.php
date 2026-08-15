@@ -14,6 +14,8 @@ use Illuminate\Support\Str;
 use Laravel\Fortify\Contracts\PasskeyUser;
 use Laravel\Fortify\PasskeyAuthenticatable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Models\Chirp;
 
 /**
  * @property int $id
@@ -59,4 +61,46 @@ class User extends Authenticatable implements PasskeyUser
             ? Str::substr($initials, 0, 1).Str::substr($initials, -1)
             : $initials;
     }
+
+    /**
+     * Get the chirps for the user.
+     */
+    public function chirps(): HasMany
+    {
+        return $this->hasMany(Chirp::class);
+    }
+
+
+        /**
+     * Get the likes for the user.
+     */
+    public function likes(): HasMany
+    {
+        return $this->hasMany(Like::class);
+    }
+
+
+        /**
+     * Get the comments for the user.
+     */
+    public function comments(): HasMany
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+    /**
+     * Get the users who follow this user.
+     */
+    public function followers(): HasMany
+        {
+            return $this->hasMany(Follow::class, 'following_id');
+        }
+
+    /**
+     * Get the users this user follows.
+     */
+    public function following(): HasMany
+        {
+            return $this->hasMany(Follow::class, 'follower_id');
+        }
 }
